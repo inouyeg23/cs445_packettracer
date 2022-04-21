@@ -1,14 +1,21 @@
 import socket
 import pyshark
-import dns
+import csv
 
 
 #number of packets in a span of time vary depending on how many sites visited
 #also, can't manually input timeout, since capture ends on packet_count
 #num_packets = int(input("How many packets would you like to track? "))
 
-#our list of blacklisted sites; can add more to array
-blacklist = ["google.com", "apple.com", "azure.com", "microsoft.com"]
+#our list of blacklisted sites. sites are added from blacklist.csv
+blacklist = []
+
+#read data from blacklist.csv
+with open('blacklist.csv', newline='') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        blacklist.append(''.join(row))
+
 
 print("Beginning capture: \n")
 
